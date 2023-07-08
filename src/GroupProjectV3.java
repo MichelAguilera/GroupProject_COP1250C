@@ -1,5 +1,5 @@
 /*
-    Michel Aguilera
+    Michel Aguilera, Mahith Allu, Zach Miller, Jose Mendoza
     July 8, 2023
     Group Project Verson 3.0
 
@@ -57,7 +57,7 @@ Program End
 import javax.swing.JOptionPane; // Needed for dialogue boxes
 
 // MAIN
-public class App {
+public class GroupProjectV3 {
     public static void main(String[] args) {
 
         // Declaring the variables
@@ -109,29 +109,30 @@ public class App {
                                 "D) You cannot compare characters\n";
 
         // V3) Added questions 6 and 7
-        String questionSix =   "\nQuestion 6\n" +
-                                "What will the following code segment display?\nx = 2;\ny = x++;\nSystem.out.println(y);\n\n"+
-                                "A) 0\n"+
-                                "B) 1\n"+
-                                "C) 2\n"+
-                                "D) 3\n";
-
-        String questionSeven =   "\nQuestion 7\n"+
-                                "In the following code, which variable is the counter?\nfinal int MAX_VALUE = 10;\nint number = 0;\nint result = 0;\n\nwhile (number < MAX_VALUE)\n{\n\tresult = number * 2;\n\tSystem.out/println(result);\n\tnumber++;\n}\n\n"+
-                                "A) number\n"+
-                                "B) result\n"+
-                                "C) MAX_VALUE\n";
+        String questionSix =   "\nQuestion 6\n"+
+                				"A loop that repeats itself a specific number of times is known as a(n)\n"+
+                				"A) Finite Loop\n"+
+                				"B) Total-Drive Loop\n"+
+                				"C) Count-controlled loop\n"+
+                				"D) Precise Loop\n";
+        
+        String questionSeven =  "\nQuestion 7\n"+
+                				"The while loop is known as an ___ loop, which means it tests its expression before each iteration\n"+
+                				"A) Pretest\n"+
+                				"B) Binary\n"+
+                				"C) Classic\n"+
+                				"D) Posttest\n";
 
         // Main logic
 
         boolean exit_game_loop = false;
-        while (!exit_game_loop) {
+        do {
             menuChoice = Integer.parseInt(JOptionPane.showInputDialog(null, introduction + "\n" + menu));
             switch (menuChoice) {
-                case 1: 
+                case 1: // See the rules
                     JOptionPane.showMessageDialog(null, rules);
-                    // No break added for case 1; so that the player can play the game after seeing the rules
-                case 2:
+                    break; // Prevents jump to the questions after selecting to see the rules
+                case 2: // Play the game
 
                     /*
                         NEW IN V3:
@@ -148,7 +149,7 @@ public class App {
                     */
 
                     // QUESTION 1
-                    while (true) {
+                    do {
                         answerOne = JOptionPane.showInputDialog(null, questionOne + "\nYour current score is: " + point);
                         if (answerOne.equalsIgnoreCase("D")) {
                             point += 1;
@@ -160,10 +161,10 @@ public class App {
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
-                    }
+                    } while (true);
     
                     // QUESTION 2
-                    while (true) {
+                    do {
                         answerTwo = JOptionPane.showInputDialog(null, questionTwo + "\nYour current score is: " + point);
                         if (answerTwo.equalsIgnoreCase("D")) {
                             point += 2;
@@ -175,10 +176,10 @@ public class App {
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
-                    }
+                    } while (true);
     
                     // QUESTION 3
-                    while (true) {
+                    do {
                         answerThree = JOptionPane.showInputDialog(null, questionThree + "\nYour current score is: " + point);
                         if (answerThree.equalsIgnoreCase("A")) {
                             point += 3;
@@ -190,10 +191,10 @@ public class App {
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
-                    }
+                    } while (true);
     
                     // QUESTION 4
-                    while (true) {
+                    do {
                         // V2) Added questions 4 and 5
                         answerFour = JOptionPane.showInputDialog(null, questionFour + "\nYour current score is: " + point);
                         if (answerFour.equalsIgnoreCase("A")) {
@@ -206,10 +207,10 @@ public class App {
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
-                    }
+                    } while (true);
     
                     // QUESTION 5
-                    while (true) {
+                    do {
                         answerFive = JOptionPane.showInputDialog(null, questionFive + "\nYour current score is: " + point);
                         if (answerFive.equalsIgnoreCase("B")) {
                             point += 5;
@@ -221,10 +222,10 @@ public class App {
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
-                    }
+                    } while (true);
     
                     // QUESTION 6
-                    while (true) {
+                    do {
                         answerSix = JOptionPane.showInputDialog(null, questionSix + "\nYour current score is: " + point);
                         if (answerSix.equalsIgnoreCase("C")) {
                             point += 6;
@@ -236,22 +237,22 @@ public class App {
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
-                    }
+                    } while (true);
     
                     // QUESTION 7
-                    while (true) {
+                    do {
                         answerSeven = JOptionPane.showInputDialog(null, questionSeven + "\nYour current score is: " + point);
                         if (answerSeven.equalsIgnoreCase("A")) {
                             point += 7;
                             JOptionPane.showMessageDialog(null, "Correct!");
                             break;
-                        } else if (answerSeven.equalsIgnoreCase("A") || answerSeven.equalsIgnoreCase("B") || answerSeven.equalsIgnoreCase("C")) {
+                        } else if (answerSeven.equalsIgnoreCase("A") || answerSeven.equalsIgnoreCase("B") || answerSeven.equalsIgnoreCase("C") || answerSix.equalsIgnoreCase("D")) {
                             JOptionPane.showMessageDialog(null, "Incorrect, the correct answer was: A");
                             break;
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
-                    }
+                    } while (true);
 
 
                     // V3 ) Add option to continue the game or to exit
@@ -266,7 +267,7 @@ public class App {
                             boolean break_last_menu_loop = false;
 
                         NEW IN V3) Case 2 now always breaks:
-                            This is done for X reasons;
+                            This is done for 4 reasons;
                             1. Case 3 displays a goodbye message that is 
                                no longer necessary to jump to; the last 
                                menu includes a goodbye message.
@@ -282,7 +283,7 @@ public class App {
 
                     */
                     boolean break_last_menu_loop = false;
-                    while (!break_last_menu_loop) {
+                    do {
                         int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Your score was: " + point + "\n\n" + finalMenu));
                         switch (choice) {
                             case 1: // Continue game
@@ -297,7 +298,8 @@ public class App {
                                 // If the user inputs an unavaiable integer
                                 JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
-                    }
+                    } while (!break_last_menu_loop);
+                    point = 0; // Resets score to 0 so that the player does not accumulate points from different attemts.
                     break;
 
                 case 3: // Exit the game: no score to display
@@ -309,6 +311,6 @@ public class App {
                     // If the user inputs an unavaiable integer
                     JOptionPane.showMessageDialog(null, "Invalid input, please restart the game and input an integer from 1 to 3.");
             }
-        }
+        } while (!exit_game_loop);
     }   
 }
