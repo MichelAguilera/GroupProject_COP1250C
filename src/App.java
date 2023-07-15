@@ -10,21 +10,19 @@
 // DEPENDENCIES
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
+
 import javax.swing.JOptionPane; // Needed for dialogue boxes
 
 // MAIN
 public class App {
-    public static void main(String[] args) {
-
-        File questions_file = new File("questions.txt");
-        Scanner read_questions = new Scanner(questions_file);
-
+    public static void main(String[] args) throws FileNotFoundException {
         // Declaring the variables
         int point = 0;
         int menuChoice = 0;
 
         String name = JOptionPane.showInputDialog(null, "Please input your name below.");
-        String answerOne, answerTwo, answerThree, answerFour, answerFive, answerSix, answerSeven;
+        String player_answer;
 
         String introduction =   name.toUpperCase() + ", WELCOME TO THE JAVA PROGRAMMER GAME!";
         String goodbyeMessage = "Thanks for playing the JAVA PROGRAMMER GAME!";
@@ -33,90 +31,61 @@ public class App {
         String finalMenu =      "Would you like to play again?\n[1] Yes, I'd like to play again\n[2] No, please exit"; // Added in V3
         String rules =          "You have chosen to see the rules. The game will give you a set of 10 questions about Java. If you answer correctly, points will be added to your score. Have fun!";
 
-        
-
         // Main logic 
-        /*
         boolean exit_game_loop = false;
         do {
+            File questions_file = new File("questions.txt");
+            Scanner read_questions = new Scanner(questions_file);
+
             menuChoice = Integer.parseInt(JOptionPane.showInputDialog(null, introduction + "\n" + menu));
             switch (menuChoice) {
                 case 1: // See the rules
                     JOptionPane.showMessageDialog(null, rules);
                     break; // Prevents jump to the questions after selecting to see the rules
                 case 2: // Play the game
+                
+                    /* 
+                        VERSION 4 CHANGES
 
-                    /*
-                        NEW IN V3:
-                        * Displays current score in the same window as the question
-                          so that the player keeps track of their score without
-                          needing too many dialogue boxes
-                        ----------------------------------------------------------
-                        NEW IN V2.1:
-                        * Moved the questions inside case 2
-                        ----------------------------------------------------------
-                        NEW IN V2:
-                        * Algorithm to check for the correct answers to the questions,
-                          accumulates a score and shows it to the player at the end.
-                    * /
+                        - REMOVED: Hard-coded questions inside the code
+                        + ADDED: External file to store the questions with the strings and metadata (correct answer and point worth)
+                    */
 
-                    // QUESTION 1
-                    String question_text;
-                    do {
-                        String answer;
+                    while (read_questions.hasNextLine()) {
+                        // INITIALIZES THE VARIABLES FOR USE BY THE PROGRAM
+                        String question_text = "";
+                        String question_answer;
                         int question_point_value;
 
-                        for (int line = 1; line < 5; line++) {
-                            // System.out.println(read_questions.nextLine());
-                            
+                        // LOADS THE QUESTION INTO THE PROGRAM
+                        for (int line = 1; line <= 5; line++) {
+                            String next_line = read_questions.nextLine();
+                            question_text = question_text.concat(next_line + "\n");
                         }
 
-                        break;
-                    } while (true);
-    
-                    // QUESTION 2
-                    // do {
-                    //     answerTwo = JOptionPane.showInputDialog(null, questionTwo + "\nYour current score is: " + point);
-                    //     if (answerTwo.equalsIgnoreCase("D")) {
-                    //         point += 2;
-                    //         JOptionPane.showMessageDialog(null, "Correct!");
-                    //         break;
-                    //     } else if (answerTwo.equalsIgnoreCase("A") || answerTwo.equalsIgnoreCase("B") || answerTwo.equalsIgnoreCase("C") || answerTwo.equalsIgnoreCase("D")) {
-                    //         JOptionPane.showMessageDialog(null, "Incorrect, the correct answer was: D");
-                    //         break;
-                    //     } else {
-                    //         JOptionPane.showMessageDialog(null, "Invalid input.");
-                    //     }
-                    // } while (true);
+                        // LOADS THE METADATA INTO THE PROGRAM
+                        question_answer = read_questions.nextLine();
+                        question_point_value = Integer.parseInt(read_questions.nextLine());
 
+                        // DEBUG
+                        System.out.println(question_text + " " + question_answer + " " + question_point_value);
 
-                    // V3 ) Add option to continue the game or to exit
-                    /* 
-                        This while loop is responsible for wrapping up
-                        the game. It asks the player whether to continue
-                        or exit the game, informing them of the score.
+                        // LOGIC
+                        do {
+                            player_answer = JOptionPane.showInputDialog(null, question_text + "\nYour current score is: " + point);
+                            if (player_answer.equalsIgnoreCase(question_answer)) {
+                                point += question_point_value;
+                                JOptionPane.showMessageDialog(null, "Correct!");
+                                break;
+                            } else if (player_answer.equalsIgnoreCase("A") || player_answer.equalsIgnoreCase("B") || player_answer.equalsIgnoreCase("C") || player_answer.equalsIgnoreCase("D")) {
+                                JOptionPane.showMessageDialog(null, "Incorrect, the correct answer was: " + question_answer);
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Invalid input.");
+                            }
+                        } while (true);
+                    }
 
-                        The local boolean variable break_last_menu_loop
-                        is needed to set the exit conditions for the menu 
-                        that appears at the end of the game.
-                            boolean break_last_menu_loop = false;
-
-                        NEW IN V3) Case 2 now always breaks:
-                            This is done for 4 reasons;
-                            1. Case 3 displays a goodbye message that is 
-                               no longer necessary to jump to; the last 
-                               menu includes a goodbye message.
-                            2. The goodbye message inside case 2 displays
-                               the score, which case 3 does not do.
-                            3. This reserves the case 3 goodbye message
-                               for the person who selects exit without playing
-                               the game, while the case 2 goodbye message
-                               includes data only available if the player
-                               decides to play the game.
-                            4. Prevents both goodbye messages from displaying
-                               back-to-back; only displaying one goodbye message.
-
-                    * /
                     boolean break_last_menu_loop = false;
                     do {
                         int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Your score was: " + point + "\n\n" + finalMenu));
@@ -146,9 +115,7 @@ public class App {
                     // If the user inputs an unavaiable integer
                     JOptionPane.showMessageDialog(null, "Invalid input, please restart the game and input an integer from 1 to 3.");
             }
+            read_questions.close(); // Prevent data leak
         } while (!exit_game_loop);
-        */
-
-        read_questions.close();
     }   
 }
