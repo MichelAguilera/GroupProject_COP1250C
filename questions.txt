@@ -1,0 +1,49 @@
+What happens to a variable's current value in memory when a new value is stored in the same storage location
+A) An error occurs
+B) Variables value will remain unchanged
+C) Variables value is changed to zero
+D) New value will take the place of current value
+D
+1
+An error in a program that involves a violation of language rules will be detected at ____ time
+A) translation
+B) runtime
+C) save
+D) compile
+D
+2
+In Java, an argument is
+A) information provided to a method
+B) information that a method provides to its caller
+C) verbal dispute
+D) logical sequence of statements
+A
+3
+>,<, and == are____.
+A) relational operators
+B) logical operators
+C) conditional operators
+D) ternary operators
+A
+4
+How does the 'A' character compares to the character 'B'
+A) 'A' is greater than 'B'
+B) 'A' is less than 'B'
+C) 'A' is equal to 'b'
+D) You cannot compare characters
+B
+5
+A loop that repeats itself a specific number of times is known as a(n)
+A) Finite Loop
+B) Total-Drive Loop
+C) Count-controlled loop
+D) Precise Loop
+C
+6
+The while loop is known as an ___ loop, which means it tests its expression before each iteration
+A) Pretest
+B) Binary
+C) Classic
+D) Posttest
+A
+7
