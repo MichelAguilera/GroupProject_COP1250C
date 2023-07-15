@@ -11,8 +11,8 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-
-import javax.swing.JOptionPane; // Needed for dialogue boxes
+import java.io.PrintWriter;
+import javax.swing.JOptionPane;
 
 // MAIN
 public class App {
@@ -103,6 +103,17 @@ public class App {
                                 JOptionPane.showMessageDialog(null, "Invalid input.");
                         }
                     } while (!break_last_menu_loop);
+
+                    // CHECK HIGH-SCORE AND UPDATE IF NECESSARY
+                    File highscore_file = new File("highscore.txt");
+                    Scanner read_highscore = new Scanner(highscore_file);
+
+                    if (Integer.parseInt(read_highscore.nextLine()) < point) {
+                        PrintWriter print_highscore = new PrintWriter(highscore_file);
+                        print_highscore.print(point);
+                        print_highscore.close();
+                    }
+
                     point = 0; // Resets score to 0 so that the player does not accumulate points from different attemts.
                     break;
 
