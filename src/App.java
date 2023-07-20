@@ -1,7 +1,7 @@
 /*
-    Michel Aguilera
-    July 15, 2023
-    Group Project Verson 4.0
+    Michel Aguilera, Mahith Allu, Zach Miller, Jose Mendoza
+    July 19, 2023
+    Group Project Verson 4.1
 
 ----------------------------------------------
 PSEUDOCODE:
@@ -36,7 +36,7 @@ START
         - LOOP until a valid final menu choice is made:
           - IF choice is 1, set break_last_menu_loop to true to exit the final menu loop.
           - IF choice is 2, display the goodbye message and final score, set break_last_menu_loop and exit_game_loop to true to exit both the final menu loop and game loop.
-          - IF choice is invalid, display an error message.
+          - IF choice is invalid, show the question again. No message is shown.
 
         - Check if the current score is greater than the high score in the "highscore.txt" file. If it is, overwrite the highscore in the file with the current score.
         - Reset the current score to 0.
@@ -48,7 +48,6 @@ START
         - Display an error message asking for a valid input.
 
     - Close the questions file.
-
 
 ----------------------------------------------
 */
@@ -67,18 +66,17 @@ public class App {
         int point = 0;
         int menuChoice = 0;
 
+        // Mutable variables
         String name = JOptionPane.showInputDialog(null, "Please input your name below.");
         String player_answer;
 
+        // System text        
         String introduction =   name.toUpperCase() + ", WELCOME TO THE JAVA PROGRAMMER GAME!";
+        String menu =           "MENU:\n[1] See the rules\n[2] Start the game\n[3] Exit";
+        String rules =          "You have chosen to see the rules. The game will give you a set of 10 questions about Java. If you answer correctly, points will be added to your score. Have fun!";
         String goodbyeMessage = "Thanks for playing the JAVA PROGRAMMER GAME!";
 
-        String menu =           "MENU:\n[1] See the rules\n[2] Start the game\n[3] Exit";
-        String finalMenu =      "Would you like to play again?\n[1] Yes, I'd like to play again\n[2] No, please exit";
-        String rules =          "You have chosen to see the rules. The game will give you a set of 10 questions about Java. If you answer correctly, points will be added to your score. Have fun!";
-
-        // Main logic 
-        boolean exit_game_loop = false;
+        // Main logic
         do {
             File questions_file = new File("questions.txt");
             Scanner read_questions = new Scanner(questions_file);
@@ -116,7 +114,7 @@ public class App {
                         // DEBUG
                         System.out.println(question_text + " " + question_answer + " " + question_point_value);
 
-                        // LOGIC
+                        // LOGIC: changed the while(true) to while (!player_answer.equalsIgnoreCase("A") || !player_answer.equalsIgnoreCase("B") || !player_answer.equalsIgnoreCase("C") || !player_answer.equalsIgnoreCase("D"));
                         do {
                             player_answer = JOptionPane.showInputDialog(null, question_text + "\nYour current score is: " + point);
                             if (player_answer.equalsIgnoreCase(question_answer)) {
@@ -126,34 +124,17 @@ public class App {
                             } else if (player_answer.equalsIgnoreCase("A") || player_answer.equalsIgnoreCase("B") || player_answer.equalsIgnoreCase("C") || player_answer.equalsIgnoreCase("D")) {
                                 JOptionPane.showMessageDialog(null, "Incorrect, the correct answer was: " + question_answer);
                                 break;
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Invalid input.");
                             }
-                        } while (true);
+                        } while (!player_answer.equalsIgnoreCase("A") || !player_answer.equalsIgnoreCase("B") || !player_answer.equalsIgnoreCase("C") || !player_answer.equalsIgnoreCase("D"));
                     }
-
-                    boolean break_last_menu_loop = false;
-                    do {
-                        int choice = Integer.parseInt(JOptionPane.showInputDialog(null, "Your score was: " + point + "\n\n" + finalMenu));
-                        switch (choice) {
-                            case 1: // Continue game
-                                break_last_menu_loop = true; // Sets exit condition for the final menu to true; will stop the loop after case 1 is broken.
-                                break;
-                            case 2: // Exit game: display the score
-                                JOptionPane.showMessageDialog(null, goodbyeMessage + "\nYour score was: " + point);
-                                break_last_menu_loop = true; // Sets exit condition for the last menu to true; will stop the loop after case 2 is broken.
-                                exit_game_loop = true;       // Sets exit condition for the game loop to true; will stop the loop after case 2 is broken.
-                                break;
-                            default:
-                                // If the user inputs an unavaiable integer
-                                JOptionPane.showMessageDialog(null, "Invalid input.");
-                        }
-                    } while (!break_last_menu_loop);
 
                     // CHECK HIGH-SCORE AND UPDATE IF NECESSARY
                     /* 
                         NEW IN V4
                         + ADDED: Highscore checker and logger
+                        
+                        NEW IN V4.1
+                        - REMOVED: The second menu
                     */
                     File highscore_file = new File("highscore.txt");
                     Scanner read_highscore = new Scanner(highscore_file);
@@ -169,7 +150,6 @@ public class App {
 
                 case 3: // Exit the game: no score to display
                     JOptionPane.showMessageDialog(null, goodbyeMessage);
-                    exit_game_loop = true;
                     break;
 
                 default:
@@ -177,6 +157,6 @@ public class App {
                     JOptionPane.showMessageDialog(null, "Invalid input, please restart the game and input an integer from 1 to 3.");
             }
             read_questions.close(); // Prevent data leak
-        } while (!exit_game_loop);
+        } while (menuChoice != 3);
     }   
 }
