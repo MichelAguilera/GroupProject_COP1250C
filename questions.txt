@@ -47,3 +47,10 @@ C) Classic
 D) Posttest
 A
 7
+The body of a method is enclosed in ______.
+A) Square Brackets []
+B) Curly Braces {}
+C) Quotation Marks ""
+D) Parentheses ()
+B
+8
