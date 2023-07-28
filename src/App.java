@@ -96,10 +96,6 @@ public class App {
                     */
 
                     while (read_questions.hasNextLine()) {
-                        // INITIALIZES THE VARIABLES FOR USE BY THE PROGRAM
-                        String question_text = "";
-                        String question_answer;
-                        int question_point_value;
 
                         // LOADS THE QUESTION INTO THE PROGRAM
                         for (int line = 1; line <= 5; line++) {
