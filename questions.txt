@@ -54,3 +54,17 @@ C) Quotation Marks ""
 D) Parentheses ()
 B
 8
+In an array declaration, the ______ indicates the number of elements that the array will have.
+A) Subscript
+B) Sum Field
+C) Reference Variable
+D) Size Declarator
+D
+9
+The last subscript in an array is always ______
+A) One less than the number of elements
+B) One more than the number of elements
+C) Equivalent to the array size
+D) The maximum allowed length
+A
+10
